@@ -49,8 +49,10 @@ updateKitty() {
 
 updateBat() {
     [[ ! -e "$(bat --config-dir)"/themes ]] && mkdir -p "$HOME"/.config/bat/themes
+}
 
-
+updateBtop++() {
+    sed -i '/^color_theme = /c\color_theme = "TTY"' "$HOME"/.config/btop/btop.conf
 }
 
 changeWallpaper
@@ -61,4 +63,5 @@ wal -i "$pic" --cols16 -n -q 2> /dev/null
 
 updateCava
 updateKitty
-updateBat
+updateBtop++
+#updateBat
