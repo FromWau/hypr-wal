@@ -6,10 +6,10 @@ pywal16 script that also updates hyprland, cava, kitty and more.
 - [x] kitty
 - [x] btop
 - [x] lazygit
-- [ ] bat
+- [x] bat
 - [ ] nvim
 - [ ] ncspot
 - [ ] hyprland
-- [ ] firefox
+- [x] pywalfox (firefox / thunderbird)
 - [ ] wofi
 - [ ] dunst
