@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 changeWallpaper() {
 	# Get the list of monitors
@@ -48,7 +48,18 @@ updateKitty() {
 }
 
 updateBat() {
-	[[ ! -e "$(bat --config-dir)"/themes ]] && mkdir -p "$HOME"/.config/bat/themes
+	enabledTheme=$(rg -e "--theme=" "$HOME"/.config/bat/config | rg -v "#")
+	if [[ $(echo "$enabledTheme" | wc -w) -eq 1 ]]; then
+		[[ ! $(echo "$enabledTheme" | rg -e "--theme=\"base16-256\"") ]] &&
+			echo "Pls run following line to include 'base16-256' theme for bat" &&
+			echo "echo '--theme="base16-256"' >> $HOME/.config/bat/config"
+
+	else
+		echo "Warning multiple themes are set for bat."
+		echo "Pls run following line to uncomment unwanted themes and to include the 'base16-256' theme for bat"
+		echo "sed -i '/--theme/s/^/#/g' $HOME/.config/bat/config &&
+	        echo '--theme=\"base16-256\"' >> $HOME/.config/bat/config"
+	fi
 }
 
 updateBtop++() {
@@ -64,4 +75,4 @@ wal -i "$pic" --cols16 -n -q 2>/dev/null
 updateCava
 updateKitty
 updateBtop++
-#updateBat
+updateBat
