@@ -66,6 +66,17 @@ updateBtop++() {
 	sed -i '/^color_theme = /c\color_theme = "TTY"' "$HOME"/.config/btop/btop.conf
 }
 
+updateWalfox() {
+	if ! command -v pywalfox &>/dev/null; then
+		echo "Pls install pywalfox via pip (fixes some errors)"
+		echo "pip install --index-url https://test.pypi.org/simple/ pywalfox==2.8.0rc1 --break-system-packages"
+		echo "pywalfox install"
+	else
+		pywalfox dark
+		pywalfox update
+	fi
+}
+
 changeWallpaper
 
 pic=$(cat "$(fd . "$HOME"/.cache/swww/ | head -1)")
@@ -76,3 +87,4 @@ updateCava
 updateKitty
 updateBtop++
 updateBat
+updateWalfox
