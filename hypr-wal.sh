@@ -47,7 +47,7 @@ updateBat() {
 	if [[ $(echo "$enabledTheme" | wc -w) -eq 1 ]]; then
 		[[ ! $(echo "$enabledTheme" | rg -e "--theme=\"base16-256\"") ]] &&
 			echo "Pls run following line to include 'base16-256' theme for bat" &&
-			echo "echo '--theme="base16-256"' >> $HOME/.config/bat/config"
+			echo "echo '--theme=\"base16-256\"' >> $HOME/.config/bat/config"
 
 	else
 		echo "Warning multiple themes are set for bat."
@@ -72,14 +72,19 @@ updateWalfox() {
 	fi
 }
 
+upateHyprland() {
+	cp -r "$HOME"/.cache/wal/colors-hyprland.conf "$HOME"/.config/hypr/themes/wal.conf
+}
+
 changeWallpaper
 
 pic=$(cat "$(fd . "$HOME"/.cache/swww/ | head -1)")
 
-wal --saturate 1.0 -i "$pic" --cols16 -n -q 2>/dev/null
+wal --saturate 1.0 -i "$pic" --cols16 -n
 
 updateCava
 updateKitty
 updateBtop++
 updateBat
 updateWalfox
+upateHyprland
