@@ -5,15 +5,29 @@ changeWallpaper() {
 		$(hyprctl monitors -j | jq -r '.[].name')
 	)
 
-	random_pictures=(
-		$(fd ".png|.jpg|.jpeg" ~/Pictures/wallpapers/ | shuf -n ${#monitors[@]})
-	)
+    pics=()
+    if ! command -v find-similar-pics &>/dev/null; then
+        echo "Get pics random"
+        pics=(
+            $(fd ".png|.jpg|.jpeg" ~/Pictures/wallpapers/ | shuf -n ${#monitors[@]})
+        )
+    else 
+        echo "Using find-similar-pics"
+        rand_pic=$(fd ".png|.jpg|.jpeg" ~/Pictures/wallpapers/ | shuf -n 1)
+        pics[0]=$rand_pic
+
+        if [ ! ${#monitors[@]} -eq 1 ]; then
+            similar_pics=$(find-similar-pics "$rand_pic" ~/Pictures/wallpapers/ -r -n ${#monitors[@] - 1})
+
+            pics+=( "${similar_pics[@]}" )
+        fi
+    fi   
 
 	for i in "${!monitors[@]}"; do
 		monitor=${monitors[$i]}
-		random_picture=${random_pictures[$i]}
+		pic=${pics[$i]}
 
-		swww img -o "$monitor" "$random_picture" \
+		swww img -o "$monitor" "$pic" \
 			--transition-step 255 \
 			--transition-fps 60 \
 			--transition-type=any \
