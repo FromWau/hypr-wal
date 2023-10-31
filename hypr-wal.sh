@@ -7,17 +7,17 @@ changeWallpaper() {
 
     pics=()
     if ! command -v find-similar-pics &>/dev/null; then
-        echo "Get pics random"
         pics=(
             $(fd ".png|.jpg|.jpeg" ~/Pictures/wallpapers/ | shuf -n ${#monitors[@]})
         )
     else 
-        echo "Using find-similar-pics"
         rand_pic=$(fd ".png|.jpg|.jpeg" ~/Pictures/wallpapers/ | shuf -n 1)
         pics[0]=$rand_pic
 
         if [ ! ${#monitors[@]} -eq 1 ]; then
-            similar_pics=$(find-similar-pics "$rand_pic" ~/Pictures/wallpapers/ -r -n ${#monitors[@] - 1})
+            similar_pics=(
+                $(find-similar-pics "$rand_pic" ~/Pictures/wallpapers/ -s -n $(( ${#monitors[@]} - 1)))
+            )
 
             pics+=( "${similar_pics[@]}" )
         fi
