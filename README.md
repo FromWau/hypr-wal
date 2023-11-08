@@ -9,7 +9,7 @@ Uses [find-similar-pics](https://github.com/FromWau/find-similar-colors/blob/mas
 - [x] lazygit
 - [x] bat
 - [ ] nvim
-- [ ] ncspot
+- [x] ncspot
 - [x] hyprland
 - [x] pywalfox (firefox / thunderbird)
 - [ ] wofi
